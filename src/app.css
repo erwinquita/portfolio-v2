@@ -1,0 +1,226 @@
+@import 'open-props/style';
+@import 'open-props/normalize';
+@import 'open-props/buttons';
+
+:root {
+	--portfolio-primary: var(--blue-5);
+	--portfolio-secondary: var(--blue-3);
+	--portfolio-accent: var(--orange-5);
+	--portfolio-text: var(--gray-9);
+	--portfolio-bg: var(--gray-0);
+	--portfolio-surface: var(--gray-1);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--portfolio-primary: var(--blue-4);
+		--portfolio-secondary: var(--blue-6);
+		--portfolio-accent: var(--orange-4);
+		--portfolio-text: var(--gray-1);
+		--portfolio-bg: var(--gray-9);
+		--portfolio-surface: var(--gray-8);
+	}
+}
+
+body {
+	background-color: var(--portfolio-bg);
+	color: var(--portfolio-text);
+	font-family: var(--font-sans);
+	line-height: var(--font-lineheight-3);
+}
+
+.container {
+	max-inline-size: var(--size-content-3);
+	margin-inline: auto;
+	padding-inline: var(--size-3);
+}
+
+.card {
+	background: var(--portfolio-surface);
+	border-radius: var(--radius-2);
+	padding: var(--size-4);
+	box-shadow: var(--shadow-2);
+	border: var(--border-size-1) solid var(--gray-3);
+}
+
+.button {
+	background: var(--portfolio-primary);
+	color: var(--gray-0);
+	border: none;
+	padding: var(--size-2) var(--size-4);
+	border-radius: var(--radius-2);
+	cursor: pointer;
+	text-decoration: none;
+	display: inline-block;
+	font-weight: var(--font-weight-6);
+	transition: all var(--animation-fade-in);
+}
+
+.button:hover {
+	background: var(--portfolio-secondary);
+	transform: translateY(-2px);
+}
+
+.button.secondary {
+	background: transparent;
+	color: var(--portfolio-primary);
+	border: var(--border-size-2) solid var(--portfolio-primary);
+}
+
+.button.secondary:hover {
+	background: var(--portfolio-primary);
+	color: var(--gray-0);
+}
+
+.nav {
+	background: var(--portfolio-surface);
+	border-block-end: var(--border-size-1) solid var(--gray-3);
+	padding-block: var(--size-3);
+	position: sticky;
+	inset-block-start: 0;
+	z-index: var(--layer-2);
+}
+
+.nav-list {
+	display: flex;
+	gap: var(--size-4);
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	align-items: center;
+}
+
+.nav-link {
+	text-decoration: none;
+	color: var(--portfolio-text);
+	font-weight: var(--font-weight-5);
+	padding: var(--size-2) var(--size-3);
+	border-radius: var(--radius-2);
+	transition: all var(--animation-fade-in);
+}
+
+.nav-link:hover,
+.nav-link.active {
+	background: var(--portfolio-primary);
+	color: var(--gray-0);
+}
+
+.hero {
+	padding-block: var(--size-8) var(--size-6);
+	text-align: center;
+}
+
+.hero h1 {
+	font-size: var(--font-size-6);
+	margin-block-end: var(--size-3);
+	color: var(--portfolio-primary);
+}
+
+.hero p {
+	font-size: var(--font-size-3);
+	color: var(--gray-6);
+	max-inline-size: var(--size-content-2);
+	margin-inline: auto;
+}
+
+.grid {
+	display: grid;
+	gap: var(--size-4);
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+}
+
+.portfolio-item {
+	border: var(--border-size-1) solid var(--gray-3);
+	border-radius: var(--radius-2);
+	overflow: hidden;
+	transition: all var(--animation-fade-in);
+}
+
+.portfolio-item:hover {
+	transform: translateY(-4px);
+	box-shadow: var(--shadow-3);
+}
+
+.portfolio-content {
+	padding: var(--size-4);
+}
+
+.portfolio-item h3 {
+	margin-block-end: var(--size-2);
+	color: var(--portfolio-primary);
+}
+
+.portfolio-item p {
+	color: var(--gray-6);
+	margin-block-end: var(--size-3);
+}
+
+.form {
+	max-inline-size: var(--size-content-1);
+	margin-inline: auto;
+}
+
+.form-group {
+	margin-block-end: var(--size-4);
+}
+
+.form-label {
+	display: block;
+	margin-block-end: var(--size-2);
+	font-weight: var(--font-weight-5);
+}
+
+.form-input,
+.form-textarea {
+	inline-size: 100%;
+	padding: var(--size-3);
+	border: var(--border-size-1) solid var(--gray-4);
+	border-radius: var(--radius-2);
+	background: var(--portfolio-surface);
+	color: var(--portfolio-text);
+	font-family: inherit;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+	outline: var(--border-size-2) solid var(--portfolio-primary);
+	border-color: var(--portfolio-primary);
+}
+
+.form-textarea {
+	resize: vertical;
+	min-block-size: 120px;
+}
+
+.section {
+	padding-block: var(--size-6);
+}
+
+.section h2 {
+	text-align: center;
+	margin-block-end: var(--size-5);
+	color: var(--portfolio-primary);
+	font-size: var(--font-size-5);
+}
+
+.prose {
+	max-inline-size: var(--size-content-2);
+	margin-inline: auto;
+}
+
+.prose p {
+	margin-block-end: var(--size-4);
+	line-height: var(--font-lineheight-4);
+}
+
+.text-center {
+	text-align: center;
+}
+
+.mb-4 {
+	margin-block-end: var(--size-4);
+}
+
+.mt-6 {
+	margin-block-start: var(--size-6);
+}
