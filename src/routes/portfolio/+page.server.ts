@@ -1,5 +1,5 @@
 import { db } from '$lib/server/db';
-import { portfolio } from '$lib/server/db/schema';
+import { portfolios } from '$lib/server/db/schema';
 import { desc } from 'drizzle-orm';
 import type { PageServerLoad } from './$types';
 
@@ -7,8 +7,8 @@ export const load: PageServerLoad = async () => {
 	try {
 		const projects = await db
 			.select()
-			.from(portfolio)
-			.orderBy(desc(portfolio.createdAt));
+			.from(portfolios)
+			.orderBy(desc(portfolios.createdAt));
 
 		return {
 			projects

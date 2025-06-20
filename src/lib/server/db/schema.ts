@@ -8,7 +8,7 @@ export const users = sqliteTable('users', {
   createdAt: text('created_at').default(sql`(datetime('now'))`).notNull()
 });
 
-export const portfolio = sqliteTable('portfolios', {
+export const portfolios = sqliteTable('portfolios', {
   id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
   userId: integer('user_id')
     .notNull()
@@ -23,5 +23,5 @@ export const portfolio = sqliteTable('portfolios', {
 
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
-export type Portfolio = typeof portfolio.$inferSelect;
-export type NewPortfolio = typeof portfolio.$inferInsert;
+export type Portfolio = typeof portfolios.$inferSelect;
+export type NewPortfolio = typeof portfolios.$inferInsert;
