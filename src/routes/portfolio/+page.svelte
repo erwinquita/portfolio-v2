@@ -24,7 +24,7 @@
 						<div class="portfolio-content">
 							<h3>{project.title}</h3>
 							<p>{project.description}</p>
-							<img src={project.imageUrl} alt="project image" />
+							<img src={project.imageUrl} alt={project.title} />
 							<div style="display: flex; justify-content: space-between; align-items: center;">
 								<a href={project.projectUrl} target="_blank" rel="noopener noreferrer" class="button">
 									View Project

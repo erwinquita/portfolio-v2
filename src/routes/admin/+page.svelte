@@ -4,7 +4,7 @@
 	import type { ActionData, PageData } from './$types';
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
-	
+
 	let isSubmitting = $state(false);
 
 	// Show toast messages based on form result
@@ -29,26 +29,10 @@
 <section class="section">
 	<div class="container">
 		<h1 class="text-center mb-4">Portfolio Admin</h1>
-		
+
 		<div style="max-width: 600px; margin: 0 auto;">
 			<h2>Add New Project</h2>
-			
-			<!-- {#if form?.success} -->
-			<!-- 	<div class="card" style="background: var(--green-1); border-color: var(--green-4); margin-bottom: var(--size-4);"> -->
-			<!-- 		<p style="color: var(--green-8); margin: 0;"> -->
-			<!-- 			Project added successfully! -->
-			<!-- 		</p> -->
-			<!-- 	</div> -->
-			<!-- {/if} -->
-			
-			{#if form?.error}
-				<div class="card" style="background: var(--red-1); border-color: var(--red-4); margin-bottom: var(--size-4);">
-					<p style="color: var(--red-8); margin: 0;">
-						{form.error}
-					</p>
-				</div>
-			{/if}
-			
+
 			<form
 				method="POST"
 				action="?/create"
@@ -71,21 +55,16 @@
 						value={form?.data?.title || ''}
 					/>
 				</div>
-				
+
 				<div class="form-group">
 					<label for="description" class="form-label">Description</label>
-					<textarea
-						id="description"
-						name="description"
-						class="form-textarea"
-						required
-						rows="4"
-					>{form?.data?.description || ''}</textarea>
+					<textarea id="description" name="description" class="form-textarea" required rows="4"
+						>{form?.data?.description || ''}</textarea
+					>
 				</div>
 
-
 				<div class="form-group">
-					<label for="url" class="form-label">Image URL</label>
+					<label for="imageUrl" class="form-label">Image URL</label>
 					<input
 						type="text"
 						id="imageUrl"
@@ -97,9 +76,8 @@
 					/>
 				</div>
 
-
 				<div class="form-group">
-					<label for="url" class="form-label">Project URL</label>
+					<label for="projectUrl" class="form-label">Project URL</label>
 					<input
 						type="url"
 						id="projectUrl"
@@ -110,8 +88,7 @@
 						value={form?.data?.projectUrl || ''}
 					/>
 				</div>
-				
-				
+
 				<div class="text-center">
 					<button type="submit" class="button" disabled={isSubmitting}>
 						{isSubmitting ? 'Adding...' : 'Add Project'}
@@ -125,7 +102,7 @@
 <section class="section" style="background: var(--portfolio-surface);">
 	<div class="container">
 		<h2>Existing Projects</h2>
-		
+
 		{#if data.featuredProjects.length > 0}
 			<div class="grid">
 				{#each data.featuredProjects as project}
@@ -133,7 +110,9 @@
 						<h3>{project.title}</h3>
 						<p>{project.description}</p>
 						<p style="color: var(--gray-5); font-size: var(--font-size-1);">
-							URL: <a href={project.url} target="_blank" rel="noopener noreferrer">{project.url}</a>
+							URL: <a href={project.projectUrl} target="_blank" rel="noopener noreferrer"
+								>{project.projectUrl}</a
+							>
 						</p>
 						<p style="color: var(--gray-5); font-size: var(--font-size-1);">
 							Created: {new Date(project.createdAt || '').toLocaleDateString()}
@@ -165,3 +144,4 @@
 		{/if}
 	</div>
 </section>
+

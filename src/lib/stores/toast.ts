@@ -29,12 +29,12 @@ function createToastStore() {
 			...toast
 		};
 
-		update(toasts => [...toasts, newToast]);
+		update((toasts) => [...toasts, newToast]);
 		return id;
 	}
 
 	function remove(id: string) {
-		update(toasts => toasts.filter(toast => toast.id !== id));
+		update((toasts) => toasts.filter((toast) => toast.id !== id));
 	}
 
 	function clear() {

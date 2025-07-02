@@ -21,7 +21,7 @@
 	
 	let element: HTMLDivElement;
 	let timeoutId: number | undefined;
-	let progressElement: HTMLDivElement;
+	// let progressElement: HTMLDivElement;
 	let removing = $state(false);
 	
 	const icons = {
@@ -75,9 +75,7 @@
 		{/if}
 		{#if duration > 0}
 			<div
-				bind:this={progressElement}
 				class="toast-progress"
-				style="--duration: {duration}ms"
 			></div>
 		{/if}
 	</div>
