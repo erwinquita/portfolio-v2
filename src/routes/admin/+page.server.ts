@@ -17,7 +17,7 @@ export const load: PageServerLoad = async () => {
 	} catch (error) {
 		console.error('Error loading projects:', error);
 		return {
-			projects: []
+			featuredProjects: []
 		};
 	}
 };
@@ -29,6 +29,7 @@ export const actions: Actions = {
 		const description = data.get('description') as string;
 		const projectUrl = data.get('projectUrl') as string;
 		const imageUrl = data.get('imageUrl') as string;
+		// const updatedAt = data.get('updatedAt') as string;
 
 		// Basic validation
 		if (!title || !description || !projectUrl) {
@@ -72,7 +73,87 @@ export const actions: Actions = {
 			console.error('Error creating project:', error);
 			return fail(500, {
 				error: 'Failed to create project. Please try again.',
-				data: { title, description, projectUrl }
+				data: { title, description, projectUrl, imageUrl }
+			});
+		}
+	},
+
+	update: async ({ request }) => {
+		const data = await request.formData();
+		const id = parseInt(data.get('id') as string);
+		const title = data.get('title') as string;
+		const description = data.get('description') as string;
+		const projectUrl = data.get('projectUrl') as string;
+		const imageUrl = data.get('imageUrl') as string;
+		const updatedAt = data.get('updatedAt') as string;
+
+		// Basic validation
+		if (!id || !title || !description || !projectUrl) {
+			return fail(400, {
+				error: 'All fields are required.',
+				data: { id, title, description, projectUrl, imageUrl }
+			});
+		}
+
+		// URL validation
+		try {
+			new URL(projectUrl);
+		} catch {
+			return fail(400, {
+				error: 'Please enter a valid URL.',
+				data: { id, title, description, projectUrl, imageUrl }
+			});
+		}
+
+		try {
+			// Check if project exists
+			const [existingProject] = await db
+				.select()
+				.from(portfolios)
+				.where(eq(portfolios.id, id))
+				.limit(1);
+
+			if (!existingProject) {
+				return fail(404, {
+					error: 'Project not found.',
+					data: { id, title, description, projectUrl, imageUrl }
+				});
+			}
+
+			// Check if any field has actually changed
+			const hasChanges = 
+				existingProject.title !== title ||
+				existingProject.description !== description ||
+				existingProject.projectUrl !== projectUrl ||
+				existingProject.imageUrl !== imageUrl;
+
+			if (!hasChanges) {
+				return fail(400, {
+					error: 'No changes detected. All fields have the same values.',
+					data: { id, title, description, projectUrl, imageUrl }
+				});
+			}
+
+			await db
+				.update(portfolios)
+				.set({
+					title,
+					description,
+					projectUrl,
+					imageUrl,
+					updatedAt
+				})
+				.where(eq(portfolios.id, id));
+
+			return {
+				success: true,
+				action: 'update'
+			};
+		} catch (error) {
+			console.error('Error updating project:', error);
+			return fail(500, {
+				error: 'Failed to update project. Please try again.',
+				data: { id, title, description, projectUrl, imageUrl }
 			});
 		}
 	},
@@ -88,6 +169,19 @@ export const actions: Actions = {
 		}
 
 		try {
+			// Check if project exists
+			const [existingProject] = await db
+				.select()
+				.from(portfolios)
+				.where(eq(portfolios.id, id))
+				.limit(1);
+
+			if (!existingProject) {
+				return fail(404, {
+					error: 'Project not found.'
+				});
+			}
+
 			await db.delete(portfolios).where(eq(portfolios.id, id));
 
 			return {

@@ -58,7 +58,7 @@ body {
 
 .button:hover {
 	background: var(--portfolio-secondary);
-	transform: translateY(-2px);
+	/* transform: translateY(-2px); */
 }
 
 .button.secondary {
@@ -291,25 +291,25 @@ body {
 		background: var(--gray-8);
 		border-color: var(--gray-6);
 	}
-	
+
 	.toast-content.success {
 		background: var(--green-9);
 		border-color: var(--green-6);
 		color: var(--green-1);
 	}
-	
+
 	.toast-content.error {
 		background: var(--red-9);
 		border-color: var(--red-6);
 		color: var(--red-1);
 	}
-	
+
 	.toast-content.warning {
 		background: var(--orange-9);
 		border-color: var(--orange-6);
 		color: var(--orange-1);
 	}
-	
+
 	.toast-content.info {
 		background: var(--blue-9);
 		border-color: var(--blue-6);
@@ -401,9 +401,57 @@ body {
 		right: var(--size-2);
 		left: var(--size-2);
 	}
-	
+
 	.toast-content {
 		min-width: auto;
 		max-width: none;
 	}
+}
+
+/* Dialog */
+
+.project-dialog {
+	border: none;
+	border-radius: 8px;
+	padding: 0;
+	max-width: 600px;
+	width: 90%;
+	box-shadow:
+		0 4px 6px -1px rgb(0 0 0 / 0.1),
+		0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.project-dialog::backdrop {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dialog-content {
+	padding: 1.5rem;
+}
+
+.dialog-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+
+.dialog-header h2 {
+	margin: 0;
+}
+
+.dialog-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 0.75rem;
+	margin-top: 1.5rem;
+}
+
+.button-disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.button-disabled:hover {
+	background: var(--gray-2) !important;
 }

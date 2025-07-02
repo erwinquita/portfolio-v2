@@ -18,7 +18,8 @@ export const portfolios = sqliteTable('portfolios', {
   imageUrl: text('image_url'),
   projectUrl: text('project_url'),
   tags: text('tags'), // JSON string of tags array
-  createdAt: text('created_at').default(sql`(datetime('now'))`).notNull()
+  createdAt: text('created_at').default(sql`(datetime('now'))`).notNull(),
+  updatedAt: text('updated_at')
 });
 
 export type User = typeof users.$inferSelect;
