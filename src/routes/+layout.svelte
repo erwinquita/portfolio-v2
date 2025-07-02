@@ -1,6 +1,7 @@
 <script lang="ts">
 	import '../app.css';
 	import { page } from '$app/stores';
+	import ToastContainer from '$lib/components/ToastContainer.svelte';
 
 	let { children } = $props();
 
@@ -38,3 +39,6 @@
 		<p>&copy; 2025 Portfolio App. Built with SvelteKit & Open Props.</p>
 	</div>
 </footer>
+
+<!-- Toast Container -->
+<ToastContainer />

@@ -1,10 +1,20 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { toastStore } from '$lib/stores/toast';
 	import type { ActionData } from './$types';
 
 	let { form }: { form: ActionData } = $props();
 	
 	let isSubmitting = $state(false);
+
+	// Show toast messages based on form result
+	$effect(() => {
+		if (form?.success) {
+			toastStore.success('Thank you for your message! I\'ll get back to you soon.');
+		} else if (form?.error) {
+			toastStore.error(form.error);
+		}
+	});
 </script>
 
 <svelte:head>
@@ -21,22 +31,6 @@
 		</p>
 		
 		<div class="form">
-			{#if form?.success}
-				<div class="card" style="background: var(--green-1); border-color: var(--green-4); margin-bottom: var(--size-4);">
-					<p style="color: var(--green-8); margin: 0;">
-						Thank you for your message! I'll get back to you as soon as possible.
-					</p>
-				</div>
-			{/if}
-			
-			{#if form?.error}
-				<div class="card" style="background: var(--red-1); border-color: var(--red-4); margin-bottom: var(--size-4);">
-					<p style="color: var(--red-8); margin: 0;">
-						{form.error}
-					</p>
-				</div>
-			{/if}
-			
 			<form
 				method="POST"
 				use:enhance={() => {
@@ -111,7 +105,7 @@
 			<div class="card text-center">
 				<h3>Email</h3>
 				<p>hello@yourportfolio.com</p>
-				<a href="mailto:juandelahcruz@gmail.com" class="button secondary">Send Email</a>
+				<a href="mailto:hello@yourportfolio.com" class="button secondary">Send Email</a>
 			</div>
 			<div class="card text-center">
 				<h3>LinkedIn</h3>

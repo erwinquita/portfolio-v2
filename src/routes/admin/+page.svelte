@@ -1,10 +1,24 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { toastStore } from '$lib/stores/toast';
 	import type { ActionData, PageData } from './$types';
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
 	
 	let isSubmitting = $state(false);
+
+	// Show toast messages based on form result
+	$effect(() => {
+		if (form?.success) {
+			if (form.action === 'create') {
+				toastStore.success('Project added successfully!');
+			} else if (form.action === 'delete') {
+				toastStore.success('Project deleted successfully!');
+			}
+		} else if (form?.error) {
+			toastStore.error(form.error);
+		}
+	});
 </script>
 
 <svelte:head>
@@ -19,13 +33,13 @@
 		<div style="max-width: 600px; margin: 0 auto;">
 			<h2>Add New Project</h2>
 			
-			{#if form?.success}
-				<div class="card" style="background: var(--green-1); border-color: var(--green-4); margin-bottom: var(--size-4);">
-					<p style="color: var(--green-8); margin: 0;">
-						Project added successfully!
-					</p>
-				</div>
-			{/if}
+			<!-- {#if form?.success} -->
+			<!-- 	<div class="card" style="background: var(--green-1); border-color: var(--green-4); margin-bottom: var(--size-4);"> -->
+			<!-- 		<p style="color: var(--green-8); margin: 0;"> -->
+			<!-- 			Project added successfully! -->
+			<!-- 		</p> -->
+			<!-- 	</div> -->
+			<!-- {/if} -->
 			
 			{#if form?.error}
 				<div class="card" style="background: var(--red-1); border-color: var(--red-4); margin-bottom: var(--size-4);">
@@ -130,6 +144,7 @@
 							use:enhance={() => {
 								return async ({ update }) => {
 									if (confirm('Are you sure you want to delete this project?')) {
+										// toastStore.info('Deleting project...');
 										await update();
 									}
 								};

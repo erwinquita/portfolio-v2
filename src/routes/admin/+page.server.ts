@@ -65,7 +65,8 @@ export const actions: Actions = {
 			});
 
 			return {
-				success: true
+				success: true,
+				action: 'create'
 			};
 		} catch (error) {
 			console.error('Error creating project:', error);
@@ -90,7 +91,8 @@ export const actions: Actions = {
 			await db.delete(portfolios).where(eq(portfolios.id, id));
 
 			return {
-				success: true
+				success: true,
+				action: 'delete'
 			};
 		} catch (error) {
 			console.error('Error deleting project:', error);
