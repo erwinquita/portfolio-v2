@@ -8,11 +8,22 @@ export const users = sqliteTable('users', {
   createdAt: text('created_at').default(sql`(datetime('now'))`).notNull()
 });
 
+
+export const categories = sqliteTable('categories', {
+  id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
+  category: text('category').notNull(),
+  createdAt: text('created_at').default(sql`(datetime('now'))`).notNull(),
+  updatedAt: text('updated_at')
+});
+
 export const portfolios = sqliteTable('portfolios', {
   id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
   userId: integer('user_id')
     .notNull()
     .references(() => users.id),
+  categoryId: integer('category_id')
+    .notNull()
+    .references(() => categories.id),
   title: text('title').notNull(),
   description: text('description').notNull(),
   imageUrl: text('image_url'),
@@ -24,5 +35,7 @@ export const portfolios = sqliteTable('portfolios', {
 
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
+export type Category = typeof categories.$inferSelect;
+export type NewCategory = typeof categories.$inferInsert;
 export type Portfolio = typeof portfolios.$inferSelect;
 export type NewPortfolio = typeof portfolios.$inferInsert;
